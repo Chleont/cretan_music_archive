@@ -37,3 +37,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 Project uses https://motion-primitives.com/
 For component installation refer to: https://motion-primitives.com/docs/text-effect#installation
+
+Background image source: https://mycreta.blogspot.com/search/label/%CE%A1%CE%AD%CE%B8%CF%85%CE%BC%CE%BD%CE%BF

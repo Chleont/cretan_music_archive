@@ -1,59 +1,34 @@
 import Image from "next/image";
+import { Nav } from "@/components/nav";
 
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col overflow-hidden bg-background text-foreground">
-      <main className="relative flex min-h-screen flex-1 items-center justify-center px-4 py-8 sm:px-6 lg:px-10">
+      <main className="relative flex flex-col min-h-screen flex-1 items-center justify-center px-4 py-8 sm:px-6 lg:px-10">
+        <Image
+          src="/main.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="absolute inset-0 object-cover object-bottom"
+        />
         <section
-          className="relative flex w-full max-w-7xl flex-col items-center justify-center"
+          className="relative z-10 flex w-full max-w-7xl flex-col items-center justify-center"
           aria-label="Cretan music archive home"
         >
-          <div className="absolute z-10 bottom-20 flex flex-col mb-[-3vw] bg-[#6f584230] rounded-lg p-10 h-fit w-1/2 sm:mb-[-42px]">
-            <Image
-              src="/logo.png"
-              alt="Cretan Music Archive logo placeholder"
-              width={380}
-              height={160}
-              priority
-              sizes="50vw"
-              className="mb-auto mx-auto h-auto w-1/2 object-contain"
-            />
-            <Image
-              src="/sublogo.png"
-              alt="Cretan Music Archive logo placeholder"
-              fill
-              priority
-              className="object-contain mt-16"
-            />
-          </div>
-
-          <div className="grid h-[min(85vh,760px)] w-[min(94vw,1180px)] grid-cols-2 overflow-hidden bg-surface shadow-2xl shadow-accent/15">
-            <div className="relative h-full bg-surface">
-              <div className="absolute bottom-3 left-3 right-0 top-3 sm:bottom-4 sm:left-4 sm:top-4">
-                <Image
-                  src="/kareklas.jpg"
-                  alt="Archive visual placeholder left"
-                  fill
-                  priority
-                  sizes="(max-width: 1180px) 47vw, 590px"
-                  className="object-contain object-right"
-                />
-              </div>
-            </div>
-            <div className="relative h-full bg-surface-muted">
-              <div className="absolute bottom-3 left-0 right-3 top-3 sm:bottom-4 sm:right-4 sm:top-4">
-                <Image
-                  src="/koufianos.jpg"
-                  alt="Archive visual placeholder right"
-                  fill
-                  priority
-                  sizes="(max-width: 1180px) 47vw, 590px"
-                  className="object-contain object-left"
-                />
-              </div>
-            </div>
+          <div className="absolute bottom-20 z-10 mb-[-3vw] flex h-fit w-[min(88vw,560px)] flex-col items-center rounded-lg bg-archive-ivory/80 px-6 py-8 text-center text-deep-grove shadow-2xl shadow-archive-black/20 sm:mb-[-42px] sm:px-10 sm:py-9">
+            <h1 className="!text-5xl font-semibold leading-none text-deep-grove sm:text-7xl">
+              Μπαλούκος
+            </h1>
+            <p className="mt-5 max-w-md text-balance text-base font-medium leading-snug text-shallow-grove sm:text-xl">
+              Εκπαιδευτικό αρχείο προπολεμικής κρητικής μουσικής
+            </p>
           </div>
         </section>
+        <div className="relative overflow-visible h-0 mt-30">
+          <Nav />
+        </div>
       </main>
     </div>
   );
