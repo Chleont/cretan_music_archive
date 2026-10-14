@@ -1,48 +1,56 @@
-'use client';
+"use client";
 
-import { FolderKanban, Home, Music, Users } from 'lucide-react';
-import { usePathname, useRouter } from 'next/navigation';
+import { FolderKanban, Home, Music, Users } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Dock,
   DockIcon,
   DockItem,
   DockLabel,
-} from '@/components/motion-primitives/dock';
-import { cn } from '@/lib/utils';
+} from "@/components/motion-primitives/dock";
+import { cn } from "@/lib/utils";
 
-const navItems = [
-  {
-    label: 'Homepage',
-    href: '/',
-    icon: Home,
-  },
-  {
-    label: 'Musicians',
-    href: '/musicians',
-    icon: Users,
-  },
-  {
-    label: 'Songs',
-    href: '/songs',
-    icon: Music,
-  },
-  {
-    label: 'Project',
-    href: '/project',
-    icon: FolderKanban,
-  },
-];
+type NavLabels = {
+  home: string;
+  musicians: string;
+  tracks: string;
+  project: string;
+};
 
-export function Nav() {
+type NavProps = {
+  labels: NavLabels;
+  ariaLabel: string;
+};
+
+export function Nav({ labels, ariaLabel }: NavProps) {
   const pathname = usePathname();
   const router = useRouter();
+  const navItems = [
+    {
+      label: labels.home,
+      href: "/",
+      icon: Home,
+    },
+    {
+      label: labels.musicians,
+      href: "/musicians",
+      icon: Users,
+    },
+    {
+      label: labels.tracks,
+      href: "/tracks",
+      icon: Music,
+    },
+    {
+      label: labels.project,
+      href: "/project",
+      icon: FolderKanban,
+    },
+  ];
 
   return (
-    <footer className="absolute inset-x-0 bottom-0 z-50 flex justify-center px-4 pb-4 pt-10 pointer-events-none sm:pb-6">
-      <nav
-        className="pointer-events-auto"
-        aria-label="Primary navigation"
-      >
+    <footer className="pointer-events-none absolute inset-x-0 bottom-0 z-50 flex justify-center px-4 pb-4 pt-10 sm:pb-6">
+      <nav className="pointer-events-auto" aria-label={ariaLabel}>
         <Dock
           panelHeight={65}
           magnification={100}
@@ -52,7 +60,7 @@ export function Nav() {
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive =
-              item.href === '/'
+              item.href === "/"
                 ? pathname === item.href
                 : pathname.startsWith(item.href);
 
@@ -62,16 +70,16 @@ export function Nav() {
                 className="cursor-pointer"
                 onClick={() => router.push(item.href)}
               >
-                <DockLabel className="border-none bg-cretan-slate text-archive-ivory shadow-sm text-md">
+                <DockLabel className="border-none bg-cretan-slate text-md text-archive-ivory shadow-sm">
                   {item.label}
                 </DockLabel>
                 <DockIcon>
                   <span
                     className={cn(
-                      'flex aspect-square w-full items-center justify-center rounded-xl transition-colors',
+                      "flex aspect-square w-full items-center justify-center rounded-xl transition-colors",
                       isActive
-                        ? 'bg-archive-ivory/95 text-deep-grove'
-                        : 'bg-surface text-archive-black hover:text-foreground'
+                        ? "bg-archive-ivory/95 text-deep-grove"
+                        : "bg-surface text-archive-black hover:text-foreground"
                     )}
                   >
                     <Icon className="h-8/12 w-8/12" aria-hidden="true" />

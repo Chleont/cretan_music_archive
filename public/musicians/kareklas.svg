@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1125" role="img" aria-labelledby="title desc">
+  <title id="title">Kareklas portrait</title>
+  <desc id="desc">A mock archive portrait of a Cretan laouto musician.</desc>
+  <rect width="900" height="1125" fill="#F3F1E8"/>
+  <path d="M0 762c122 54 251 68 388 42 201-39 372-21 512 54v267H0Z" fill="#9EAFB0"/>
+  <circle cx="449" cy="316" r="145" fill="#B69A55"/>
+  <path d="M298 287c63-119 166-168 309-147 51 48 78 113 81 195-106-41-236-57-390-48Z" fill="#404C51"/>
+  <path d="M309 487c82 86 182 111 300 74 71 91 113 215 127 371H164c13-165 61-313 145-445Z" fill="#29332B"/>
+  <path d="M288 621c116 83 245 91 389 25" stroke="#F3F1E8" stroke-width="24" stroke-linecap="round" fill="none"/>
+  <path d="M231 827c124-71 255-79 393-24" stroke="#B69A55" stroke-width="30" stroke-linecap="round"/>
+  <ellipse cx="341" cy="827" rx="139" ry="84" fill="#B69A55" stroke="#29332B" stroke-width="18"/>
+  <ellipse cx="342" cy="827" rx="65" ry="39" fill="#F3F1E8" opacity=".86"/>
+  <path d="M458 814l294-83" stroke="#29332B" stroke-width="24" stroke-linecap="round"/>
+  <path d="M717 724l70-20" stroke="#29332B" stroke-width="38" stroke-linecap="round"/>
+  <path d="M493 309c31 24 68 22 110-7" stroke="#29332B" stroke-width="12" stroke-linecap="round"/>
+  <path d="M341 309c33 23 71 21 113-7" stroke="#29332B" stroke-width="12" stroke-linecap="round"/>
+  <path d="M401 397c39 18 78 15 118-8" stroke="#29332B" stroke-width="12" stroke-linecap="round"/>
+  <path d="M252 1075h396" stroke="#29332B" stroke-width="18" stroke-linecap="round"/>
+</svg>
