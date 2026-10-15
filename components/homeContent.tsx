@@ -15,8 +15,7 @@ export default function HomeContent() {
 
   return (
     <div className="flex min-h-screen flex-col overflow-hidden bg-background text-foreground">
-      <LanguageSwitcher />
-      <main className="relative flex min-h-screen flex-1 flex-col items-center justify-center px-4 py-8 sm:px-6 lg:px-10">
+      <main className="relative flex min-h-screen flex-1 flex-col items-center justify-start px-4 pb-8 pt-16 sm:justify-center sm:px-6 sm:py-8 lg:px-10">
         <Image
           src="/main.jpg"
           alt=""
@@ -25,11 +24,12 @@ export default function HomeContent() {
           sizes="100vw"
           className="absolute inset-0 object-cover object-bottom"
         />
+        <LanguageSwitcher />
         <section
           className="relative z-10 flex w-full max-w-7xl flex-col items-center justify-center"
           aria-label={dictionary.homePage.ariaLabel}
         >
-          <div className="absolute bottom-20 z-10 mb-[-3vw] flex h-fit w-[min(88vw,560px)] flex-col items-center rounded-lg bg-archive-ivory/80 px-6 py-8 text-center text-deep-grove shadow-2xl shadow-archive-black/20 sm:mb-[-42px] sm:px-10 sm:py-9">
+          <div className="relative z-10 flex h-fit w-[min(88vw,560px)] flex-col items-center rounded-lg bg-archive-ivory/80 px-6 py-8 text-center text-deep-grove shadow-2xl shadow-archive-black/20 sm:absolute sm:bottom-20 sm:mb-[-42px] sm:px-10 sm:py-9">
             <h1 className="!text-5xl font-semibold leading-none text-deep-grove sm:text-7xl">
               {dictionary.homePage.title}
             </h1>
@@ -38,7 +38,7 @@ export default function HomeContent() {
             </p>
           </div>
         </section>
-        <div className="relative mt-30 h-0 overflow-visible">
+        <div className="relative mt-8 w-full overflow-visible sm:mt-30 sm:h-0">
           <Nav
             labels={dictionary.navigation}
             ariaLabel={dictionary.common.primaryNavigation}
