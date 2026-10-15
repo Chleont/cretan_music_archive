@@ -27,7 +27,7 @@ export function LanguageSwitcher() {
   return (
     <Link
       href={hrefFor()}
-      className="fixed right-4 top-4 z-[60] text-sm font-bold text-deep-grove underline-offset-4 transition-colors hover:text-olive-leaf hover:underline sm:right-6 sm:top-6"
+      className="fixed right-4 top-4 z-[60] rounded-md bg-white/85 px-3 py-2 text-sm font-bold text-deep-grove underline-offset-4 backdrop-blur-sm transition-colors hover:text-olive-leaf hover:underline sm:right-6 sm:top-6"
       aria-label={
         nextLanguage === "en"
           ? dictionary.common.switchToEnglish

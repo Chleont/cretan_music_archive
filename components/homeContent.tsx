@@ -4,6 +4,7 @@
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { Nav } from "@/components/nav";
+import { LanguageSwitcher } from "@/components/language/language-switcher";
 import { getDictionary, getLocale } from "@/lib/translations";
 
 export default function HomeContent() {
@@ -14,6 +15,7 @@ export default function HomeContent() {
 
   return (
     <div className="flex min-h-screen flex-col overflow-hidden bg-background text-foreground">
+      <LanguageSwitcher />
       <main className="relative flex min-h-screen flex-1 flex-col items-center justify-center px-4 py-8 sm:px-6 lg:px-10">
         <Image
           src="/main.jpg"

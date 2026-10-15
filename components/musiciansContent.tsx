@@ -47,7 +47,7 @@ export default function MusiciansContent() {
               fill
               priority
               sizes="(min-width: 1024px) 320px, 100vw"
-              className="object-cover"
+              className="object-cover object-top lg:object-center"
             />
           </div>
 

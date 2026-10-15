@@ -43,7 +43,7 @@ export function SiteNav() {
   ];
 
   function hrefFor(href: string) {
-    return locale === "en" && href !== "/" ? `${href}?lang=en` : href;
+    return locale === "en" ? `${href}?lang=en` : href;
   }
 
   function languageHref() {
