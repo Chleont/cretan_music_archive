@@ -47,7 +47,7 @@ export function Nav({ labels, ariaLabel }: NavProps) {
       icon: FolderKanban,
     },
   ];
-
+// TODO: Disactivate hover animation for small screens 
   return (
     <footer className="pointer-events-none relative z-50 flex justify-center px-4 sm:absolute sm:inset-x-0 sm:bottom-0 sm:pb-6 sm:pt-10">
       <nav className="pointer-events-auto" aria-label={ariaLabel}>

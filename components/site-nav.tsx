@@ -74,7 +74,7 @@ export function SiteNav() {
               href={hrefFor(item.href)}
               className={cn(
                 "inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-bold text-deep-grove transition-colors hover:bg-archive-ivory hover:text-olive-leaf",
-                isActive && "bg-archive-ivory text-olive-leaf"
+                isActive && "bg-archive-ivory hover:text-deep-grove"
               )}
             >
               <Icon className="h-4 w-4" aria-hidden="true" />
@@ -105,12 +105,17 @@ export function SiteNav() {
           <div className="absolute left-2 top-full mt-2 grid min-w-44 gap-1 rounded-md border border-deep-grove/10 bg-white p-2 shadow-lg shadow-archive-black/10">
             {navItems.map((item) => {
               const Icon = item.icon;
+              const isActive =
+                item.href === "/" ? pathname === item.href : pathname.startsWith(item.href);
 
               return (
                 <Link
                   key={item.href}
                   href={hrefFor(item.href)}
-                  className="flex items-center gap-2 rounded px-3 py-2 text-sm font-bold text-deep-grove transition-colors hover:bg-archive-ivory"
+                  className={cn(
+                    "flex items-center gap-2 rounded px-3 py-2 text-sm font-bold text-deep-grove transition-colors hover:bg-archive-ivory",
+                    isActive && "bg-archive-ivory"
+                  )}
                   onClick={() => setIsOpen(false)}
                 >
                   <Icon className="h-4 w-4" aria-hidden="true" />
@@ -123,7 +128,7 @@ export function SiteNav() {
       </div>
       <Link
         href={languageHref()}
-        className="px-2 py-1 text-sm font-bold text-deep-grove underline-offset-4 transition-colors hover:text-olive-leaf hover:underline"
+        className="px-2 py-1 text-sm font-bold text-deep-grove transition-colors hover:text-olive-leaf"
         aria-label={
           nextLanguage === "en"
             ? dictionary.common.switchToEnglish
