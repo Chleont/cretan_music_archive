@@ -28,8 +28,10 @@ export function ArtistsDropdown({
       className="w-full rounded-md border border-deep-grove/20 bg-white px-3 py-3 text-base font-bold text-deep-grove outline-none transition-colors focus:border-olive-leaf"
       onChange={(event) => {
         const params = new URLSearchParams(searchParams.toString());
-        params.set("musician", event.target.value);
-        router.push(`/musicians?${params.toString()}`);
+        params.delete("musician");
+        const query = params.toString();
+        const pathname = `/musicians/${encodeURIComponent(event.target.value)}`;
+        router.push(query ? `${pathname}?${query}` : pathname);
       }}
     >
       {artists.map((artist) => (

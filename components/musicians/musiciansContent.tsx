@@ -9,18 +9,16 @@ import { ArtistsDropdown } from "@/components/musicians/artists-dropdown";
 import { cn } from "@/lib/utils";
 import { getDictionary, getLocale } from "@/lib/translations";
 
-export default function MusiciansContent() {
+export default function MusiciansContent({ id }: { id: string }) {
   const searchParams = useSearchParams();
   const locale = getLocale(searchParams.get("lang") ?? undefined);
   const dictionary = getDictionary(locale);
 
   const page = dictionary.musiciansPage;
 
-  const selectedId = searchParams.get("musician");
+  const selected = page.musicians.find((musician) => musician.id === id);
 
-  const selected =
-    page.musicians.find((musician) => musician.id === selectedId) ??
-    page.musicians[0];
+  if (!selected) return null;
 
   const artistOptions = page.musicians.map((musician) => ({
     id: musician.id,
@@ -56,10 +54,9 @@ export default function MusiciansContent() {
               <Link
                 key={musician.id}
                 href={{
-                  pathname: "/musicians",
+                  pathname: `/musicians/${encodeURIComponent(musician.id)}`,
                   query: {
                     ...(locale === "en" ? { lang: "en" } : {}),
-                    musician: musician.id,
                   },
                 }}
                 className={cn(
@@ -121,10 +118,9 @@ export default function MusiciansContent() {
                 <Link
                   key={track.id}
                   href={{
-                    pathname: "/tracks",
+                    pathname: `/tracks/${encodeURIComponent(track.id)}`,
                     query: {
                       ...(locale === "en" ? { lang: "en" } : {}),
-                      track: track.id,
                     },
                   }}
                   className="group grid gap-2 border-b border-deep-grove/15 py-3 transition-colors hover:border-sun-ochre sm:grid-cols-[1fr_auto] sm:items-center"

@@ -14,6 +14,7 @@ export function SiteNav() {
   const locale = getLocale(searchParams.get("lang") ?? undefined);
   const dictionary = getDictionary(locale);
   const nextLanguage = locale === "en" ? "el" : "en";
+  const isTrackPage = /^\/tracks\/[^/]+\/?$/.test(pathname);
 
   if (pathname === "/") {
     return null;
@@ -60,7 +61,7 @@ export function SiteNav() {
   }
 
   return (
-    <header className="fixed left-4 right-4 top-4 z-50 rounded-md bg-white/85 px-2 py-2 shadow-[0_0_18px_rgba(255,255,255,0.38)] backdrop-blur-sm sm:left-6 sm:right-6 sm:top-6">
+    <header className={cn("fixed left-4 right-4 top-4 z-50 rounded-md px-2 py-2 sm:left-6 sm:right-6 sm:top-6", isTrackPage ? "text-shallow-grove" : "bg-white/85 shadow-[0_0_18px_rgba(255,255,255,0.38)] backdrop-blur-sm")}>
       <div className="flex items-center justify-between gap-3">
       <nav className="hidden items-center gap-1 md:flex" aria-label={dictionary.common.primaryNavigation}>
         {navItems.map((item) => {
@@ -73,8 +74,9 @@ export function SiteNav() {
               key={item.href}
               href={hrefFor(item.href)}
               className={cn(
-                "inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-bold text-deep-grove transition-colors hover:bg-archive-ivory hover:text-olive-leaf",
-                isActive && "bg-archive-ivory hover:text-deep-grove"
+                "inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-bold transition-colors",
+                isTrackPage ? "text-archive-black hover:bg-olive-leafy/40 focus-visible:outline-shallow-grove" : "text-archive-black hover:text-deep-grove hover:bg-archive-ivory",
+                isActive && (isTrackPage ? "bg-olive-leafy/80 hover:text-shallow-grove" : "bg-archive-ivory hover:text-deep-grove text-archive-black text")
               )}
             >
               <Icon className="h-4 w-4" aria-hidden="true" />
@@ -87,7 +89,7 @@ export function SiteNav() {
       <div className="md:hidden">
         <button
           type="button"
-          className="inline-flex h-10 w-10 items-center justify-center text-deep-grove transition-colors hover:text-olive-leaf"
+          className={cn("inline-flex h-10 w-10 items-center justify-center rounded-md transition-colors", isTrackPage ? "text-shallow-grove hover:bg-shallow-grove/10 focus-visible:outline-shallow-grove" : "text-deep-grove hover:text-olive-leaf")}
           aria-label={
             isOpen ? dictionary.common.closeNavigation : dictionary.common.openNavigation
           }
@@ -102,7 +104,7 @@ export function SiteNav() {
         </button>
 
         {isOpen ? (
-          <div className="absolute left-2 top-full mt-2 grid min-w-44 gap-1 rounded-md border border-deep-grove/10 bg-white p-2 shadow-lg shadow-archive-black/10">
+          <div className={cn("absolute left-2 top-full mt-2 grid min-w-44 gap-1 rounded-md p-2 shadow-lg", isTrackPage ? "bg-white text-shallow-grove shadow-shallow-grove/10" : "border border-deep-grove/10 bg-white shadow-archive-black/10")}>
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive =
@@ -113,8 +115,9 @@ export function SiteNav() {
                   key={item.href}
                   href={hrefFor(item.href)}
                   className={cn(
-                    "flex items-center gap-2 rounded px-3 py-2 text-sm font-bold text-deep-grove transition-colors hover:bg-archive-ivory",
-                    isActive && "bg-archive-ivory"
+                    "flex items-center gap-2 rounded px-3 py-2 text-sm font-bold transition-colors",
+                    isTrackPage ? "text-shallow-grove hover:bg-shallow-grove/10 focus-visible:outline-shallow-grove" : "text-deep-grove hover:bg-archive-ivory",
+                    isActive && (isTrackPage ? "bg-shallow-grove/15 text-shallow-grove" : "bg-archive-ivory")
                   )}
                   onClick={() => setIsOpen(false)}
                 >
@@ -128,7 +131,7 @@ export function SiteNav() {
       </div>
       <Link
         href={languageHref()}
-        className="px-2 py-1 text-sm font-bold text-deep-grove transition-colors hover:text-olive-leaf"
+        className={cn("rounded-md px-2 py-1 text-sm font-bold transition-colors", isTrackPage ? "text-shallow-grove hover:bg-shallow-grove/10 focus-visible:outline-shallow-grove" : "text-deep-grove hover:text-olive-leaf")}
         aria-label={
           nextLanguage === "en"
             ? dictionary.common.switchToEnglish
