@@ -61,7 +61,7 @@ export function SiteNav() {
   }
 
   return (
-    <header className={cn("fixed left-4 right-4 top-4 z-50 rounded-md px-2 py-2 sm:left-6 sm:right-6 sm:top-6", isTrackPage ? "text-shallow-grove" : "bg-white/85 shadow-[0_0_18px_rgba(255,255,255,0.38)] backdrop-blur-sm")}>
+    <header data-site-nav className={cn("fixed left-0 right-0 top-0 z-50 rounded-none px-4 pb-2 pt-[max(0.5rem,env(safe-area-inset-top))] md:left-6 md:right-6 md:top-6 md:rounded-md md:px-2 md:pt-2", isTrackPage ? "bg-track-background/95 text-shallow-grove backdrop-blur-sm md:bg-transparent md:backdrop-blur-none" : "bg-white/85 shadow-[0_0_18px_rgba(255,255,255,0.38)] backdrop-blur-sm")}>
       <div className="flex items-center justify-between gap-3">
       <nav className="hidden items-center gap-1 md:flex" aria-label={dictionary.common.primaryNavigation}>
         {navItems.map((item) => {

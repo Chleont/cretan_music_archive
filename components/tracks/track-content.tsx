@@ -5,6 +5,8 @@ import dynamic from "next/dynamic";
 import { ArrowRight, ChevronDown, X } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useId, useRef, useState } from "react";
+import YouTube, { type YouTubePlayer } from "react-youtube";
+import type { RecordingSource } from "@/components/tracks/audio-player";
 import { getDictionary, getLocale } from "@/lib/translations";
 import { cn } from "@/lib/utils";
 
@@ -14,11 +16,20 @@ const TrackAudioPlayer = dynamic(() => import("@/components/tracks/audio-player"
   loading: () => <div aria-hidden="true" className="h-20 md:h-10" />,
 });
 
+const SheetViewer = dynamic(() => import("@/components/tracks/sheet-viewer"), {
+  ssr: false,
+  loading: () => <div aria-hidden="true" className="h-[600px] bg-track-surface lg:h-full" />,
+});
+
 export default function TrackContent({ id }: { id: string }) {
   const searchParams = useSearchParams();
   const trackMenu = useRef<HTMLDialogElement>(null);
+  const youtubeEmbed = useRef<YouTube>(null);
   const trackMenuId = useId();
   const [trackMenuOpen, setTrackMenuOpen] = useState(false);
+  const [source, setSource] = useState<RecordingSource>("new");
+  const [youtube, setYoutube] = useState<{ trackId: string; player: YouTubePlayer } | null>(null);
+  const [youtubeErrorTrack, setYoutubeErrorTrack] = useState<string | null>(null);
   const locale = getLocale(searchParams.get("lang") ?? undefined);
   const dictionary = getDictionary(locale);
   const page = dictionary.tracksPage;
@@ -36,7 +47,7 @@ export default function TrackContent({ id }: { id: string }) {
 
   return (
     <main className="min-h-screen bg-track-background pt-24 text-track-ink lg:grid lg:h-dvh lg:min-h-0 lg:grid-rows-[minmax(0,1fr)_auto]">
-      <section className="mx-auto grid w-full pb-32 lg:min-h-0 lg:pb-4 lg:max-w-full md:max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[320px_minmax(0,1fr)] lg:grid-rows-[minmax(0,1fr)] lg:overflow-hidden lg:px-10">
+      <section className="mx-auto grid w-full pb-32 lg:min-h-0 lg:pb-4 lg:max-w-full md:max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[360px_minmax(0,1fr)] lg:grid-rows-[minmax(0,1fr)] lg:overflow-hidden lg:px-10">
         <aside className="flex min-h-0 min-w-0 flex-col gap-4 lg:overflow-y-auto">
           <div className="lg:hidden">
             <button
@@ -85,7 +96,22 @@ export default function TrackContent({ id }: { id: string }) {
             <h1 className="text-4xl font-bold leading-tight sm:text-5xl text-olive-leaf-dark">{selected.title}</h1>
             <p className="mt-3 text-olive-leaf-dark text-xl">{selected.artist}</p>
           </div>
-          <iframe key={selected.id} src={selected.youtubeUrl} title={`${page.youtubeLabel}: ${selected.title}`} className="aspect-video w-full rounded-md bg-track-surface" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+          <YouTube
+            ref={youtubeEmbed}
+            key={selected.id}
+            videoId={new URL(selected.youtubeUrl).pathname.split("/").pop()}
+            title={`${page.youtubeLabel}: ${selected.title}`}
+            className="aspect-video h-[200px] shrink-0 self-center overflow-hidden rounded-md bg-track-surface min-[500px]:self-start"
+            iframeClassName="h-full w-full"
+            opts={{ width: "100%", height: "100%", playerVars: { playsinline: 1 } }}
+            onReady={() => {
+              const player = youtubeEmbed.current?.getInternalPlayer();
+              if (player) setYoutube({ trackId: selected.id, player });
+              setYoutubeErrorTrack(null);
+            }}
+            onPlay={() => setSource("original")}
+            onError={() => setYoutubeErrorTrack(selected.id)}
+          />
           <nav aria-label={page.artistTracks} className="hidden lg:block">
             <h2 className="mb-2 text-sm font-bold uppercase tracking-wider text-olive-leaf-dark">{page.artistTracks}</h2>
             {artistTracks.map((track) => (
@@ -97,12 +123,12 @@ export default function TrackContent({ id }: { id: string }) {
         </aside>
         <article className="flex min-h-0 min-w-0 flex-col">
           <div className="min-h-0 flex-1 overflow-hidden rounded-md bg-track-background">
-            <iframe src={`/sheets/${selected.sheetFile}`} title={`${page.sheetLabel}: ${selected.title}`} className="block h-[600px] w-full lg:h-full" />
+            <SheetViewer key={`${selected.id}-${locale}`} file={`/sheets/${selected.sheetFile}`} title={selected.title} labels={page} />
           </div>
         </article>
       </section>
       <div className="track-player-dock lg:relative!">
-        <TrackAudioPlayer key={`${selected.id}-${locale}`} track={selected} labels={page} />
+        <TrackAudioPlayer key={`${selected.id}-${locale}`} track={selected} labels={page} source={source} onSourceChange={setSource} youtubePlayer={youtube?.trackId === selected.id ? youtube.player : null} youtubeFailed={youtubeErrorTrack === selected.id} />
       </div>
     </main>
   );

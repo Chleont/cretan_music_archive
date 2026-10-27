@@ -16,6 +16,8 @@
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "react-modern-audio-player": "^2.4.4",
+    "react-pdf": "^11.0.0",
+    "react-youtube": "^10.1.0",
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {

@@ -40,6 +40,12 @@ body {
   user-select: none;
 }
 
+@media (width < 48rem) {
+  .track-sheet-viewer {
+    height: max(0px, calc(100dvh - var(--sheet-nav-height, 56px) - var(--sheet-player-height, 88px) - 2rem));
+  }
+}
+
 .track-player-dock {
   position: fixed;
   z-index: 40;
@@ -66,6 +72,25 @@ body {
 .track-audio-player .rmap-interface-grid {
   grid-template-columns: minmax(0, 1fr) !important;
   padding: 0 !important;
+}
+
+/* Override the player's unlayered font and button resets for source options. */
+.track-audio-player .track-source-option {
+  padding: 0.5rem 0.75rem;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--color-olive-leaf-dark) 50%, transparent);
+  background: color-mix(in srgb, var(--color-olive-forest) 2%, transparent);
+}
+
+.track-audio-player .track-source-option[aria-pressed="true"] {
+  font-weight: 700;
+  color: var(--color-olive-leaf-dark);
+  background: color-mix(in srgb, var(--color-olive-forest) 20%, transparent);
+}
+
+.track-audio-player .track-source-option[aria-pressed="false"]:hover {
+  color: color-mix(in srgb, var(--color-olive-leaf-dark) 70%, transparent);
+  background: color-mix(in srgb, var(--color-olive-forest) 7%, transparent);
 }
 
 .track-player-range {
